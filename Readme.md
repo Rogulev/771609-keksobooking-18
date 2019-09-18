@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Алексей Рогулёв](https://up.htmlacademy.ru/javascript/18/user/771609).
-* Наставник: `Неизвестно`.
+* Наставник: [Кекс].
 
 ---
 
