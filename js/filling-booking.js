@@ -50,8 +50,8 @@
           type: window.data.TYPE_HOUSING[getRandomInt(0, window.data.TYPE_HOUSING.length - 1)],
           rooms: getRandomInt(1, 3),
           guests: getRandomInt(1, 3),
-          checkin: times[getRandomInt(0, 3)],
-          checkout: times[getRandomInt(0, 3)],
+          checkin: window.data.times[getRandomInt(0, 3)],
+          checkout: window.data.times[getRandomInt(0, 3)],
           features: getFeatures(),
           description: "Тут будет описание",
           photos: getPhotos(1, 3)
@@ -65,7 +65,7 @@
     }
   };
   createArrayInfo();
-  window.bookingInfo = {
+  window.fillingBooking = {
     'bookingInfo': bookingInfo
   }
 

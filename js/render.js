@@ -7,7 +7,7 @@
       .content.querySelector(".map__pin");
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < bookingInfo.length; i++) {
+    for (var i = 0; i < window.fillingBooking.bookingInfo.length; i++) {
       var element = template.cloneNode(true);
       var img = element.querySelector("img");
       element.style.left = info[i].location.x + "px";
@@ -27,19 +27,33 @@
   //Заполнение поля адреса
   window.data.inputAddress.value = coordinatePinStart.x + "," + coordinatePinStart.y;
 
+  // Добавление disabled на Формы
+  var adForm = document.querySelector(".ad-form");
+  var mapFilters = document.querySelector(".map__filters");
+
+  var formDisabled = function () {
+    for (var i = 0; i < adForm.children.length; i++) {
+      adForm.children[i].setAttribute("disabled", true);
+    }
+    for (var i = 0; i < mapFilters.children.length; i++) {
+      mapFilters.children[i].setAttribute("disabled", true);
+    }
+  };
+  formDisabled();
+
   // Добавление активации страницы по клику
   var mainUnblocking = function () {
-    formUnblocking(), renderPins(bookingInfo);
+    formUnblocking(), renderPins(window.fillingBooking.bookingInfo);
   };
 
   var onPinEnterPress = function (evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === window.data.ENTER_KEYCODE) {
       mainUnblocking();
     }
   };
 
   var formUnblocking = function () {
-    map.classList.remove("map--faded");
+    window.data.map.classList.remove("map--faded");
     adForm.classList.remove("ad-form--disabled");
 
     for (var i = 0; i < adForm.children.length; i++) {
@@ -48,12 +62,12 @@
     for (var i = 0; i < mapFilters.children.length; i++) {
       mapFilters.children[i].removeAttribute("disabled", true);
     }
-    mainPin.removeEventListener("mousedown", mainUnblocking);
+    window.data.mainPin.removeEventListener("mousedown", mainUnblocking);
 
-    mainPin.removeEventListener("keydown", onPinEnterPress);
+    window.data.mainPin.removeEventListener("keydown", onPinEnterPress);
   };
 
-  mainPin.addEventListener("mousedown", mainUnblocking);
+  window.data.mainPin.addEventListener("mousedown", mainUnblocking);
 
-  mainPin.addEventListener("keydown", onPinEnterPress);
+  window.data.mainPin.addEventListener("keydown", onPinEnterPress);
 })();

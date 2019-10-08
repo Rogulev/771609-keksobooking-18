@@ -10,14 +10,14 @@
   var mainMapPin = document.querySelector(".map__pin--main");
   var TYPE_HOUSING = ["palace", "flat", "house", "bungalo"];
   var times = ["12:00", "13:00", "14:00"];
-  var features = [
+  /*var features = [
     "wifi",
     "dishwasher",
     "parking",
     "washer",
     "elevator",
     "conditioner"
-  ];
+  ];*/
   var inputAddress = document.getElementById("address");
   var map = document.querySelector(".map");
   var mainPin = document.querySelector(".map__pin--main");
@@ -33,7 +33,7 @@
     'mainMapPin': mainMapPin,
     'TYPE_HOUSING': TYPE_HOUSING,
     'times': times,
-    'features': features,
+    //'features': features,
     'inputAddress': inputAddress,
     'map': map,
     'mainPin': mainPin
