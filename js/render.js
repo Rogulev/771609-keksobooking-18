@@ -19,14 +19,6 @@
     window.data.mapPins.appendChild(fragment);
   };
 
-  //Вычисление координат стартовой метки
-  var coordinatePinStart = {
-    y: Math.round(window.data.mapPins.offsetHeight / 2 + window.data.mainMapPin.offsetHeight / 2)
-  };
-
-  //Заполнение поля адреса
-  window.data.inputAddress.value = coordinatePinStart.x + "," + coordinatePinStart.y;
-
   // Добавление disabled на Формы
   var adForm = document.querySelector(".ad-form");
   var mapFilters = document.querySelector(".map__filters");
