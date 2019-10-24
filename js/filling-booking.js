@@ -35,8 +35,8 @@
   };
 
   // Наполнение массива букинг объектами
-  var bookingInfo = [];
-  var createArrayInfo = function () {
+  var bookingInfo = [window.backEnd.loadeddata];
+  /*var createArrayInfo = function () {
     for (var i = 0; i < window.data.OFFERS_AMMOUNT; i++) {
       bookingInfo[i] = {
         autor: {
@@ -63,8 +63,8 @@
         }
       };
     }
-  };
-  createArrayInfo();
+  };*/
+  //createArrayInfo();
   window.fillingBooking = {
     'bookingInfo': bookingInfo
   }

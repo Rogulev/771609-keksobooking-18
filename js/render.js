@@ -10,10 +10,10 @@
     for (var i = 0; i < window.fillingBooking.bookingInfo.length; i++) {
       var element = template.cloneNode(true);
       var img = element.querySelector("img");
-      element.style.left = info[i].location.x + "px";
+     /* element.style.left = info[i].location.x + "px";
       element.style.top = info[i].location.y + "px";
       img.src = info[i].autor.avatar;
-      img.alt = info[i].offer.type;
+      img.alt = info[i].offer.type;*/
       fragment.appendChild(element);
     }
     window.data.mapPins.appendChild(fragment);
