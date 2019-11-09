@@ -1,17 +1,17 @@
-"use strict";
+'use strict';
 
 (function () {
 
-  //Вычисление координат стартовой метки
+  // Вычисление координат стартовой метки
   var getCoordinatePinStart = {
     x: Math.round(window.data.mapPins.offsetWidth / 2 + window.data.mainMapPin.offsetWidth / 2),
     y: Math.round(window.data.mapPins.offsetHeight / 2 + window.data.mainMapPin.offsetHeight / 2)
   };
 
-  //Заполнение поля адреса
-  window.data.inputAddress.value = getCoordinatePinStart.x + "," + getCoordinatePinStart.y;
+  // Заполнение поля адреса
+  window.data.inputAddress.value = getCoordinatePinStart.x + ',' + getCoordinatePinStart.y;
 
-  //Событие Перетаскивания
+  // Событие Перетаскивания
   window.data.mainMapPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
@@ -36,7 +36,6 @@
       window.data.mainMapPin.style.left = (getCoordinatePinStart.offsetLeft - shift.x) + 'px';
       window.data.mainMapPin.style.top = (getCoordinatePinStart.offsetTop - shift.y) + 'px';
 
-      //////////////////////////////////////////////
       var checkLimitPin = function (element) {
         var elementCoordinate = {
           x: element.offsetLeft - shift.x,
