@@ -1,20 +1,19 @@
 "use strict";
 (function () {
   // Отрисовка pin на карте
-  var renderPins = function (info) {
+  var renderPins = function (array) {
     var template = document
       .querySelector("#pin")
       .content.querySelector(".map__pin");
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < window.fillingBooking.bookingInfo.length; i++) {
+    for (var i = 0; i < array.length; i++) {
       var element = template.cloneNode(true);
       var img = element.querySelector("img");
-     /* element.style.left = info[i].location.x + "px";
-      element.style.top = info[i].location.y + "px";
-      img.src = info[i].autor.avatar;
-      img.alt = info[i].offer.type;*/
-      fragment.appendChild(element);
+      element.setAttribute('style', 'left: ' + array[i].location.x + 'px; top: ' + array[i].location.y + 'px;');
+      img.setAttribute('src', array[i].author.avatar);
+      img.setAttribute('alt', array[i].offer.title);
+      fragment.appendChild(element)
     }
     window.data.mapPins.appendChild(fragment);
   };
@@ -33,10 +32,16 @@
   };
   formDisabled();
 
+  window.onSuccess = function (pins) {
+    renderPins(pins);
+    //window.setEventPin(pins);
+  };
+
   // Добавление активации страницы по клику
   var mainUnblocking = function () {
-    formUnblocking(), renderPins(window.fillingBooking.bookingInfo);
+    formUnblocking(), window.backend.load(window.onSuccess);
   };
+
 
   var onPinEnterPress = function (evt) {
     if (evt.keyCode === window.data.ENTER_KEYCODE) {

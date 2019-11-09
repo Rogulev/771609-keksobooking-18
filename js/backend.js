@@ -1,5 +1,5 @@
 "use strict";
-(function () {
+/*(function () {
   var answerOK = 200;
   var answerNotFound = 404;
   var answerInternalServer = 500;
@@ -13,7 +13,6 @@
     xhr.addEventListener('load', function () {
       switch (xhr.status) {
         case answerOK:
-
           onSuccess(xhr.response);
           break;
         case answerNotFound:
@@ -40,7 +39,6 @@
 
     xhrJson.open('GET', URL);
     xhrJson.send();
-
   };
 
   var sendData = function (data, onSuccess, onError) {
@@ -56,5 +54,28 @@
     'loadData': loadData,
     'sendData': sendData
   };
+})();*/
 
+(function () {
+  window.backend = {
+    load: function (onLoad, onError) {
+      var url = 'https://js.dump.academy/keksobooking/data';
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'json';
+
+      xhr.addEventListener('load', function () {
+        switch (xhr.status) {
+          case 200:
+            onLoad(xhr.response);
+            break;
+
+          default:
+            onError();
+        }
+      });
+
+      xhr.open('GET', url);
+      xhr.send();
+    },
+  };
 })();

@@ -35,7 +35,7 @@
   };
 
   // Наполнение массива букинг объектами
-  var bookingInfo = [window.backEnd.loadeddata];
+  var bookingInfo = [];
   /*var createArrayInfo = function () {
     for (var i = 0; i < window.data.OFFERS_AMMOUNT; i++) {
       bookingInfo[i] = {
