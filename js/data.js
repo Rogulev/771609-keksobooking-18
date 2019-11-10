@@ -13,6 +13,24 @@
   var inputAddress = document.getElementById('address');
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
+  var translateType = function (type) {
+    var translateName;
+    switch (type) {
+      case 'palace':
+        translateName = 'Дворец';
+        break;
+      case 'flat':
+        translateName = 'Квартира';
+        break;
+      case 'house':
+        translateName = 'Дом';
+        break;
+      case 'bungalo':
+        translateName = 'Бунгало';
+        break;
+    }
+    return translateName;
+  };
 
   window.data = {
     'ENTER_KEYCODE': ENTER_KEYCODE,
@@ -27,6 +45,7 @@
     'times': times,
     'inputAddress': inputAddress,
     'map': map,
-    'mainPin': mainPin
+    'mainPin': mainPin,
+    'translateType': translateType
   };
 })();
