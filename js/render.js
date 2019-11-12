@@ -2,13 +2,13 @@
 (function () {
   // Отрисовка pin на карте
   var renderPins = function (array) {
-    var template = document
+    var templatePin = document
       .querySelector('#pin')
       .content.querySelector('.map__pin');
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < array.length; i++) {
-      var element = template.cloneNode(true);
+      var element = templatePin.cloneNode(true);
       var img = element.querySelector('img');
       element.setAttribute('style', 'left: ' + array[i].location.x + 'px; top: ' + array[i].location.y + 'px;');
       img.setAttribute('src', array[i].author.avatar);
@@ -16,6 +16,7 @@
       fragment.appendChild(element);
     }
     window.data.mapPins.appendChild(fragment);
+    window.setEventPin(array);
   };
 
   // Добавление disabled на Формы
@@ -34,11 +35,12 @@
 
   window.onSuccess = function (pins) {
     renderPins(pins);
+    //window.renderCard(pins);
   };
 
   window.onError = function () {
-    var template = document.querySelector('#error').content.querySelector('.error');
-    var error = template.cloneNode(true);
+    var templateError = document.querySelector('#error').content.querySelector('.error');
+    var error = templateError.cloneNode(true);
     document.querySelector('body').prepend(error);
 
     var onBtnErrorClick = function () {

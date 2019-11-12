@@ -1,6 +1,7 @@
 'use strict';
 (function () {
   var ENTER_KEYCODE = 13;
+  var ESC_KEYCODE = 27;
   var OFFERS_AMMOUNT = 8;
   var MIN_X = 0;
   var MAX_X = 1200;
@@ -34,6 +35,7 @@
 
   window.data = {
     'ENTER_KEYCODE': ENTER_KEYCODE,
+    'ESC_KEYCODE': ESC_KEYCODE,
     'OFFERS_AMMOUNT': OFFERS_AMMOUNT,
     'MIN_X': MIN_X,
     'MAX_X': MAX_X,
