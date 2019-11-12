@@ -72,4 +72,24 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+  window.isActive = false;
+
+  // Рендер событий на карточки
+  window.addEvents = function (node, events, callback) {
+    events.forEach(function (event) {
+      if (event === 'keydown') {
+        node.addEventListener(event, function (evt) {
+          if (evt.keyCode === 13) {
+            evt.preventDefault();
+            callback();
+          } else if (evt.keyCode === 27) {
+            evt.preventDefault();
+            callback();
+          }
+        });
+      } else {
+        node.addEventListener(event, callback);
+      }
+    });
+  };
 })();

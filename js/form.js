@@ -45,4 +45,56 @@
         break;
     }
   });
+
+  // Валидация аппартаментов vs цены
+  var appartamentsType = document.querySelector('#type');
+  var appartamentsPrice = document.querySelector('#price')
+
+  var displayMinPrice = function (price) {
+    appartamentsPrice.setAttribute('minlength', price)
+    appartamentsPrice.setAttribute('placeholder', price)
+  }
+
+  appartamentsType.addEventListener('change', function () {
+    switch (appartamentsType.value) {
+      case 'bungalo':
+        displayMinPrice(0);
+      break;
+    case 'flat':
+      displayMinPrice(1000);
+      break;
+    case 'house':
+      displayMinPrice(5000);
+      break;
+    case 'palace':
+      displayMinPrice(10000);
+      break;
+    }
+  })
+
+  // Валидация времени заезда/выезда
+  var timeIn = document.querySelector('#timein');
+  var timeOut = document.querySelector('#timeout');
+
+  var timeSynchronization = function (firstTime, secondTime) {
+    switch (firstTime.value) {
+      case '12:00':
+        secondTime.value = "12:00";
+      break;
+      case '13:00':
+        secondTime.value = "13:00";
+      break;
+      case '14:00':
+        secondTime.value = "14:00";
+      break;
+    }
+  };
+
+  timeIn.addEventListener('change', function () {
+    timeSynchronization(timeIn, timeOut)
+  });
+
+  timeOut.addEventListener('change', function () {
+    timeSynchronization(timeOut, timeIn)
+  });
 })();
