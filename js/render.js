@@ -35,7 +35,6 @@
 
   window.onSuccess = function (pins) {
     renderPins(pins);
-    //window.renderCard(pins);
   };
 
   window.onError = function () {

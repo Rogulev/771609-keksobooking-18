@@ -48,7 +48,7 @@
     fragment.appendChild(element);
     window.data.mapPins.appendChild(fragment);
   };
-  // // вызов карточек
+  // вызов карточек
   window.closePopup = function () {
     var cardPopup = document.querySelector('.map__card.popup');
     if (cardPopup) {
@@ -56,25 +56,7 @@
     }
   };
 
-  var onPinClick = function (pin, elem) {
-    var pinCallback = function () {
-      window.closePopup();
-      window.renderCard(elem);
-      // вешаем события на крестик
-      setEventClose();
-    };
-    window.addEvents(pin, ['mousedown', 'keydown'], pinCallback);
-  };
-
-  window.setEventPin = function (arr) {
-    var pins = document.querySelectorAll('.map__pin--rendered');
-
-    for (var i = 0; i < pins.length; i++) {
-      onPinClick(pins[i], arr[i]);
-    }
-  };
-
-  // // // закрытие карточек
+  // закрытие карточки
   var setEventClose = function () {
     var popupClose = document.querySelector('.popup__close');
 
@@ -86,5 +68,22 @@
         window.closePopup();
       }
     });
+  };
+
+  var onPinClick = function (pin, elem) {
+    var pinCallback = function () {
+      window.closePopup();
+      window.renderCard(elem);
+      setEventClose();
+    };
+    window.addEvents(pin, ['mousedown', 'keydown'], pinCallback);
+  };
+
+  window.setEventPin = function (arr) {
+    var pins = document.querySelectorAll('.map__pin--rendered');
+
+    for (var i = 0; i < pins.length; i++) {
+      onPinClick(pins[i], arr[i]);
+    }
   };
 })();

@@ -74,6 +74,7 @@
   });
   window.isActive = false;
 
+  // Рендер событий на карточки
   window.addEvents = function (node, events, callback) {
     events.forEach(function (event) {
       if (event === 'keydown') {
