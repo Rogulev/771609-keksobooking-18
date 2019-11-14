@@ -36,7 +36,7 @@
   window.onSuccess = function (pins) {
     renderPins(pins);
   };
-
+// Ошибка при отправке
   window.onError = function () {
     var templateError = document.querySelector('#error').content.querySelector('.error');
     var error = templateError.cloneNode(true);
@@ -45,7 +45,7 @@
     var onBtnErrorClick = function () {
       document.querySelector('.error').remove();
       btnError.removeEventListener('click', onBtnErrorClick);
-      window.deactivateForms();
+      //formDisabled();
       window.isActive = false;
     };
     var btnError = document.querySelector('.error__button');
@@ -83,4 +83,10 @@
   window.data.mainPin.addEventListener('mousedown', mainUnblocking);
 
   window.data.mainPin.addEventListener('keydown', onPinEnterPress);
+
+  window.render = {
+    'formUnblocking' : formUnblocking,
+    'mainUnblocking' : mainUnblocking,
+    'formDisabled' : formDisabled
+  };
 })();

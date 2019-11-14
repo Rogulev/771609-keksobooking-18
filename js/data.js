@@ -7,13 +7,14 @@
   var MAX_X = 1200;
   var MIN_Y = 130;
   var MAX_Y = 630;
+  var adForm = document.querySelector('.ad-form');
   var mapPins = document.querySelector('.map__pins');
   var mainMapPin = document.querySelector('.map__pin--main');
   var TYPE_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
   var times = ['12:00', '13:00', '14:00'];
-  var inputAddress = document.getElementById('address');
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
+  var main = document.querySelector('main');
   var translateType = function (type) {
     var translateName;
     switch (type) {
@@ -41,13 +42,14 @@
     'MAX_X': MAX_X,
     'MIN_Y': MIN_Y,
     'MAX_Y': MAX_Y,
+    'adForm': adForm,
     'mapPins': mapPins,
     'mainMapPin': mainMapPin,
     'TYPE_HOUSING': TYPE_HOUSING,
     'times': times,
-    'inputAddress': inputAddress,
     'map': map,
     'mainPin': mainPin,
+    'main': main,
     'translateType': translateType
   };
 })();

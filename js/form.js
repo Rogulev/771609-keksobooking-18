@@ -97,4 +97,68 @@
   timeOut.addEventListener('change', function () {
     timeSynchronization(timeOut, timeIn)
   });
+
+  // Деактивация после отправки формы
+  window.deactivateForms = function () {
+    if (!window.data.map.classList.contains('map--faded')) {
+      window.data.map.classList.add('map--faded');
+    }
+
+    if (!window.data.adForm.classList.contains('ad-form--disabled')) {
+      window.data.adForm.classList.add('ad-form--disabled');
+    }
+
+    /*window.setAttrDisabled(fieldsetAdForm);
+    window.setAttrDisabled(inputsMapFilters);
+    window.setAttrDisabled(selectsMapFilters);*/
+  };
+
+
+  var removePins = function (pins) {
+    for ( var i = 0; i < pins.length; i++) {
+      pins[i].remove()
+    }
+  };
+
+  window.prepareForm = function () {
+    var pins = document.querySelectorAll('.map__pin--rendered');
+    removePins(pins);
+    window.closePopup();
+    form.reset();
+    window.data.mainPin.style.top = '375px';
+    window.data.mainPin.style.left = '570px';
+    // window. ПОЗИЦИЯ СТАРТОВОЙ МЕТКИ();
+    window.deactivateForms();
+  };
+
+  var form = document.querySelector('.ad-form');
+  var templateSucces = document.querySelector('#success').content.querySelector('.success');
+
+  // Дейстия при отправке формы
+  var onSubmitSucces = function () {
+    window.render.formDisabled();
+    window.closePopup();
+    window.prepareForm();
+
+    var succes = templateSucces.cloneNode(true);
+    window.data.main.prepend(succes);
+
+    var succesElem = window.document.querySelector('.success');
+
+    var removeSucces = function () {
+      succesElem.remove();
+    };
+
+    window.addEvents(document, ['keydown', 'click'], removeSucces);
+    //window.isActive = false;
+
+    window.data.mainPin.addEventListener('mousedown', window.render.mainUnblocking);
+
+    window.data.mainPin.addEventListener('keydown', window.render.onPinEnterPress);
+  };
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), onSubmitSucces, window.onError);
+  });
 })();
