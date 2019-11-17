@@ -107,10 +107,6 @@
     if (!window.data.adForm.classList.contains('ad-form--disabled')) {
       window.data.adForm.classList.add('ad-form--disabled');
     }
-
-    /*window.setAttrDisabled(fieldsetAdForm);
-    window.setAttrDisabled(inputsMapFilters);
-    window.setAttrDisabled(selectsMapFilters);*/
   };
 
 
@@ -127,7 +123,7 @@
     form.reset();
     window.data.mainPin.style.top = '375px';
     window.data.mainPin.style.left = '570px';
-    // window. ПОЗИЦИЯ СТАРТОВОЙ МЕТКИ();
+    window.coordinatePinInput(window.getCoordinatePinStart.x, window.getCoordinatePinStart.y);
     window.deactivateForms();
   };
 
@@ -150,7 +146,6 @@
     };
 
     window.addEvents(document, ['keydown', 'click'], removeSucces);
-    //window.isActive = false;
 
     window.data.mainPin.addEventListener('mousedown', window.render.mainUnblocking);
 

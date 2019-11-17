@@ -3,10 +3,6 @@
   var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
   var OFFERS_AMMOUNT = 8;
-  var MIN_X = 0;
-  var MAX_X = 1200;
-  var MIN_Y = 130;
-  var MAX_Y = 630;
   var adForm = document.querySelector('.ad-form');
   var mapPins = document.querySelector('.map__pins');
   var mainMapPin = document.querySelector('.map__pin--main');
@@ -38,10 +34,6 @@
     'ENTER_KEYCODE': ENTER_KEYCODE,
     'ESC_KEYCODE': ESC_KEYCODE,
     'OFFERS_AMMOUNT': OFFERS_AMMOUNT,
-    'MIN_X': MIN_X,
-    'MAX_X': MAX_X,
-    'MIN_Y': MIN_Y,
-    'MAX_Y': MAX_Y,
     'adForm': adForm,
     'mapPins': mapPins,
     'mainMapPin': mainMapPin,

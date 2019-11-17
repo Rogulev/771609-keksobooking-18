@@ -45,7 +45,6 @@
     var onBtnErrorClick = function () {
       document.querySelector('.error').remove();
       btnError.removeEventListener('click', onBtnErrorClick);
-      //formDisabled();
       window.isActive = false;
     };
     var btnError = document.querySelector('.error__button');
