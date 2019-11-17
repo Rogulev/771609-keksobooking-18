@@ -16,27 +16,26 @@
       fragment.appendChild(element);
     }
     window.data.mapPins.appendChild(fragment);
-    window.setEventPin(array);
+    window.card.setEventPin(array);
   };
 
   // Добавление disabled на Формы
   var adForm = document.querySelector('.ad-form');
   var mapFilters = document.querySelector('.map__filters');
 
-  var formDisabled = function () {
-    for (var i = 0; i < adForm.children.length; i++) {
-      adForm.children[i].setAttribute('disabled', true);
-    }
-    for (var k = 0; k < mapFilters.children.length; k++) {
-      mapFilters.children[k].setAttribute('disabled', true);
+  var disabledElement = function (elem) {
+    for (var i = 0; i < elem.children.length; i++) {
+      elem.children[i].setAttribute('disabled', true);
     }
   };
-  formDisabled();
+
+  disabledElement(adForm);
+  disabledElement(mapFilters);
 
   window.onSuccess = function (pins) {
     renderPins(pins);
   };
-// Ошибка при отправке
+  // Ошибка при отправке
   window.onError = function () {
     var templateError = document.querySelector('#error').content.querySelector('.error');
     var error = templateError.cloneNode(true);
@@ -64,16 +63,18 @@
     }
   };
 
+  var includeElement = function (elem) {
+    for (var i = 0; i < elem.children.length; i++) {
+      elem.children[i].removeAttribute('disabled', true);
+    }
+  };
+
   var formUnblocking = function () {
     window.data.map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
+    includeElement(adForm);
+    includeElement(mapFilters);
 
-    for (var i = 0; i < adForm.children.length; i++) {
-      adForm.children[i].removeAttribute('disabled', true);
-    }
-    for (var k = 0; k < mapFilters.children.length; k++) {
-      mapFilters.children[k].removeAttribute('disabled', true);
-    }
     window.data.mainPin.removeEventListener('mousedown', mainUnblocking);
 
     window.data.mainPin.removeEventListener('keydown', onPinEnterPress);
@@ -84,8 +85,11 @@
   window.data.mainPin.addEventListener('keydown', onPinEnterPress);
 
   window.render = {
-    'formUnblocking' : formUnblocking,
-    'mainUnblocking' : mainUnblocking,
-    'formDisabled' : formDisabled
+    'formUnblocking': formUnblocking,
+    'mainUnblocking': mainUnblocking,
+    'disabledElement': disabledElement,
+    'includeElement': includeElement,
+    'adForm': adForm,
+    'mapFilters': mapFilters
   };
 })();

@@ -7,7 +7,7 @@
   var PIN_ARROW = 22;
 
   // Рендер событий на keydown и click
-  window.addEvents = function (node, events, callback) {
+  var addEvents = function (node, events, callback) {
     events.forEach(function (event) {
       if (event === 'keydown') {
         node.addEventListener(event, function (evt) {
@@ -26,19 +26,19 @@
   };
 
   // Вычисление координат стартовой метки
- window.getCoordinatePinStart = {
+  var getCoordinatePinStart = {
     x: Math.round(window.data.mapPins.offsetWidth / 2),
     y: Math.round(window.data.mapPins.offsetHeight / 2)
   };
 
   // Стартовая позиция пина(заполнение)
-  window.coordinatePinInput = function (x, y) {
-    inputAddress.value = x + ', ' + y
+  var coordinatePinInput = function (x, y) {
+    inputAddress.value = x + ', ' + y;
   };
   coordinatePinInput(getCoordinatePinStart.x, getCoordinatePinStart.y);
 
   // НОВАЯ ВСТАВКА КООРДИНАТ
-  window.setCoord = function () {
+  var setCoord = function () {
     var x = window.data.mainPin.offsetLeft;
     var y = window.data.mainPin.offsetTop;
     inputAddress.value = Math.round(x + PIN_WIDTH) + ' ' + (y + PIN_HEIGHT + PIN_ARROW);
@@ -59,11 +59,11 @@
       y: evt.clientY
     };
 
-    var dragged = false;
+    // var dragged = false;
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      dragged = true;
+      // dragged = true;
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -85,7 +85,7 @@
         window.data.mainPin.style.top = coordY + 'px';
         window.data.mainPin.style.left = coordX + 'px';
 
-        window.setCoord();
+        setCoord();
       }
 
     };
@@ -98,6 +98,12 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
-  window.addEvents(window.data.mainPin, ['mousedown', 'keydown'], onMainPin);
-  window.data.mainMapPin.addEventListener('mousedown', onMainPinMove)
+  addEvents(window.data.mainPin, ['mousedown', 'keydown'], onMainPin);
+  window.data.mainMapPin.addEventListener('mousedown', onMainPinMove);
+
+  window.events = {
+    'addEvents': addEvents,
+    'coordinatePinInput': coordinatePinInput,
+    'getCoordinatePinStart': getCoordinatePinStart
+  };
 })();

@@ -5,7 +5,7 @@
     OK: 200,
     NOT_FOUND: 404,
     INTERNAL_SERVER: 500,
-    SERVER_ON_REBUILD:503
+    SERVER_ON_REBUILD: 503
   };
 
   window.backend = {
@@ -19,13 +19,13 @@
           case Code.OK:
             onLoad(xhr.response);
             break;
-          case CODE.NOT_FOUND:
+          case Code.NOT_FOUND:
             onError('Статус ответа: ' + xhr.status + ' Ошибка, страницы не существует');
             break;
-          case CODE.INTERNAL_SERVER:
+          case Code.INTERNAL_SERVER:
             onError('Статус ответа: ' + xhr.status + ' Ошибка на сервере');
             break;
-          case CODE.SERVER_ON_REBUILD:
+          case Code.SERVER_ON_REBUILD:
             onError('Статус ответа: ' + xhr.status + ' Производятся работы на сервере');
             break;
           default:
