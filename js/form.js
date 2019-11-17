@@ -4,6 +4,7 @@
   var inputRoomNumber = document.querySelector('#room_number');
   var inputCapacity = document.querySelector('#capacity');
   var options = inputCapacity.querySelectorAll('option');
+  var onFormSubmitButton = document.querySelector('.ad-form__submit');
 
   var NumberOfRooms = {
     ONE: '1',
@@ -37,6 +38,7 @@
     }
     setMessage();
   };
+  disabledOptions(2);
 
   var roomNumberCheck = function () {
     switch (inputRoomNumber.value) {
@@ -55,10 +57,30 @@
     }
   };
 
-  var onFormSubmitButton = document.querySelector('.ad-form__submit');
+  var inputTitle = document.querySelector('#title');
+  var inputTitleValidityText = function () {
+    inputTitle.setCustomValidity('')
+  };
+
+// Чек инпута титла на случай нулевого заполнения
+  var inputTitleCheck = function () {
+    if (inputTitle.value < 30) {
+      inputTitle.setCustomValidity('Заполните заголовок объявления более подробно');
+      setTimeout(inputTitleValidityText, 1000);
+    };
+  };
 
   inputRoomNumber.addEventListener('change', roomNumberCheck)
-  onFormSubmitButton.addEventListener('click', roomNumberCheck)
+
+  onFormSubmitButton.addEventListener('click', function () {
+    roomNumberCheck();
+    inputTitleCheck();
+
+  });
+
+  window.form = {
+    'inputTitleCheck': inputTitleCheck
+  };
 
   // Валидация аппартаментов vs цены
   var appartamentsPrice = {
@@ -75,8 +97,8 @@
     inputPrice.setAttribute('placeholder', price);
   };
 
-  inputType.addEventListener('change', function () {
-    switch (inputType.value) {
+  var inputTypeCheked = function () {
+      switch (inputType.value) {
       case 'bungalo':
         displayMinPrice(appartamentsPrice.bungalo);
         break;
@@ -90,7 +112,10 @@
         displayMinPrice(appartamentsPrice.palace);
         break;
     }
-  });
+  };
+  inputTypeCheked(inputType.value);
+
+  inputType.addEventListener('change', inputTypeCheked)
 
   // Валидация времени заезда/выезда
   var timeIn = document.querySelector('#timein');
