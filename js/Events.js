@@ -100,7 +100,7 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
-  window.data.mainMapPin.addEventListener('mousedown', onMainPinMove);
+  window.data.mainPin.addEventListener('mousedown', onMainPinMove);
   addEvents(window.data.mainPin, ['mousedown', 'keydown'], onMainPin);
 
 

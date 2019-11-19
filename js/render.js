@@ -1,23 +1,6 @@
 'use strict';
 (function () {
-  // Отрисовка pin на карте
-  var renderPins = function (array) {
-    var templatePin = document
-      .querySelector('#pin')
-      .content.querySelector('.map__pin');
-    var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < array.length; i++) {
-      var element = templatePin.cloneNode(true);
-      var img = element.querySelector('img');
-      element.setAttribute('style', 'left: ' + array[i].location.x + 'px; top: ' + array[i].location.y + 'px;');
-      img.setAttribute('src', array[i].author.avatar);
-      img.setAttribute('alt', array[i].offer.title);
-      fragment.appendChild(element);
-    }
-    window.data.mapPins.appendChild(fragment);
-    window.card.setEventPin(array);
-  };
+  var MAX_PINS_DRAWING = 5;
 
   // Добавление disabled на Формы
   var adForm = document.querySelector('.ad-form');
@@ -32,16 +15,38 @@
   disabledElement(adForm);
   disabledElement(mapFilters);
 
-  window.onSuccess = function (pins) {
+  // Отрисовка pin на карте
+  var renderPins = function (array) {
+    var templatePin = document
+      .querySelector('#pin')
+      .content.querySelector('.map__pin');
+    var fragment = document.createDocumentFragment();
+    if (array.length > MAX_PINS_DRAWING) {
+      array.length = MAX_PINS_DRAWING;
+    }
+    for (var i = 0; i < array.length; i++) {
+      var element = templatePin.cloneNode(true);
+      var img = element.querySelector('img');
+      element.setAttribute('style', 'left: ' + array[i].location.x + 'px; top: ' + array[i].location.y + 'px;');
+      img.setAttribute('src', array[i].author.avatar);
+      img.setAttribute('alt', array[i].offer.title);
+      fragment.appendChild(element);
+    }
+    window.data.mapPins.appendChild(fragment);
+    window.card.setEventPin(array);
+  };
+
+  // Рендер пинов при удачной загрузки даных
+  var onSuccess = function (pins) {
     renderPins(pins);
   };
-  // Ошибка при отправке
 
-  window.onError = function () {
+  // Показ окна ошибки при неудачной отправке
+  var onError = function () {
     var templateError = document.querySelector('#error').content.querySelector('.error');
     var error = templateError.cloneNode(true);
     document.querySelector('body').prepend(error);
-
+    // Снятие окна ошибки кликом
     var onBtnErrorClick = function () {
       document.querySelector('.error').remove();
       btnError.removeEventListener('click', onBtnErrorClick);
@@ -54,7 +59,7 @@
   // Добавление активации страницы по клику
   var mainUnblocking = function () {
     formUnblocking();
-    window.backend.loadData(window.onSuccess, window.onError);
+    window.backend.loadData(onSuccess, onError);
   };
 
 
@@ -64,6 +69,7 @@
     }
   };
 
+  // удаление дизейблов
   var includeElement = function (elem) {
     for (var i = 0; i < elem.children.length; i++) {
       elem.children[i].removeAttribute('disabled', true);

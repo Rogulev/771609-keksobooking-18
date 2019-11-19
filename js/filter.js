@@ -91,12 +91,9 @@
 
   var refreshPins = function () {
     pinsAfterFilter = [];
-    // window.util.popupClose();
     window.card.closePopup();
-
     getfilterObject(mapFilter);
     getPinsAfterFilter();
-    // window.main.resetPins();
     window.form.removePins();
     window.render.renderPins(pinsAfterFilter);
   };

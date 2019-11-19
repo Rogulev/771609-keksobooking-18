@@ -3,14 +3,14 @@
   var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
   var OFFERS_AMMOUNT = 8;
+  var TYPE_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
   var adForm = document.querySelector('.ad-form');
   var mapPins = document.querySelector('.map__pins');
-  var mainMapPin = document.querySelector('.map__pin--main');
-  var TYPE_HOUSING = ['palace', 'flat', 'house', 'bungalo'];
   var times = ['12:00', '13:00', '14:00'];
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
   var main = document.querySelector('main');
+
   var translateType = function (type) {
     var translateName;
     switch (type) {
@@ -36,7 +36,6 @@
     'OFFERS_AMMOUNT': OFFERS_AMMOUNT,
     'adForm': adForm,
     'mapPins': mapPins,
-    'mainMapPin': mainMapPin,
     'TYPE_HOUSING': TYPE_HOUSING,
     'times': times,
     'map': map,

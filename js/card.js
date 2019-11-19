@@ -3,6 +3,7 @@
 
   var templateCard = document.querySelector('#card').content.querySelector('.map__card');
 
+  // Рендер списка доп.услуг для карточки
   var renderFeatures = function (featuresBlock, templateFeature, countFeatures) {
     for (var i = 0; i < countFeatures.length; i++) {
       var feature = templateFeature.cloneNode();
@@ -10,6 +11,7 @@
       featuresBlock.appendChild(feature);
     }
   };
+  // Рендер фоток для карточек
   var renderPhotos = function (photosBlock, templatePhoto, countPhotos) {
     for (var k = 0; k < countPhotos.length; k++) {
       var photo = templatePhoto.cloneNode();
@@ -47,7 +49,8 @@
     fragment.appendChild(element);
     window.data.mapPins.appendChild(fragment);
   };
-  // вызов карточек
+
+  // закрытие карточки
   var closePopup = function () {
     var cardPopup = document.querySelector('.map__card.popup');
     if (cardPopup) {
@@ -55,8 +58,8 @@
     }
   };
 
-  // закрытие карточки
-  var setEventClose = function () {
+  // События закрытия карточки
+  var setEventCardClose = function () {
     var popupClose = document.querySelector('.popup__close');
 
     popupClose.addEventListener('click', function () {
@@ -73,7 +76,7 @@
     var pinCallback = function () {
       closePopup();
       renderCard(elem);
-      setEventClose();
+      setEventCardClose();
     };
     window.events.addEvents(pin, ['mousedown', 'keydown'], pinCallback);
   };
