@@ -63,7 +63,7 @@
       closePopup();
     });
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 27) {
+      if (evt.keyCode === window.data.ESC_KEYCODE) {
         closePopup();
       }
     });

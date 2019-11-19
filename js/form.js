@@ -5,6 +5,8 @@
   var inputCapacity = document.querySelector('#capacity');
   var options = inputCapacity.querySelectorAll('option');
   var onFormSubmitButton = document.querySelector('.ad-form__submit');
+  var mapFilter = document.querySelector('.map__filters');
+  var pins = document.querySelectorAll('.map__pin--rendered');
 
   var NumberOfRooms = {
     ONE: '1',
@@ -21,7 +23,7 @@
 
   // Сценарий сопоставления гостей и кол-во комнат  в форме
   var disabledOptions = function (opt) {
-    window.render.includeElement(inputCapacity)
+    window.render.includeElement(inputCapacity);
     inputCapacity.setCustomValidity('');
 
     if (opt >= 0 && opt <= 2) {
@@ -59,28 +61,22 @@
 
   var inputTitle = document.querySelector('#title');
   var inputTitleValidityText = function () {
-    inputTitle.setCustomValidity('')
+    inputTitle.setCustomValidity('');
   };
 
-// Чек инпута титла на случай нулевого заполнения
+  // Чек инпута титла на случай нулевого заполнения
   var inputTitleCheck = function () {
     if (inputTitle.value < 30) {
       inputTitle.setCustomValidity('Заполните заголовок объявления более подробно');
       setTimeout(inputTitleValidityText, 1000);
-    };
+    }
   };
 
-  inputRoomNumber.addEventListener('change', roomNumberCheck)
-
+  inputRoomNumber.addEventListener('change', roomNumberCheck);
   onFormSubmitButton.addEventListener('click', function () {
     roomNumberCheck();
     inputTitleCheck();
-
   });
-
-  window.form = {
-    'inputTitleCheck': inputTitleCheck
-  };
 
   // Валидация аппартаментов vs цены
   var appartamentsPrice = {
@@ -98,7 +94,7 @@
   };
 
   var inputTypeCheked = function () {
-      switch (inputType.value) {
+    switch (inputType.value) {
       case 'bungalo':
         displayMinPrice(appartamentsPrice.bungalo);
         break;
@@ -115,7 +111,7 @@
   };
   inputTypeCheked(inputType.value);
 
-  inputType.addEventListener('change', inputTypeCheked)
+  inputType.addEventListener('change', inputTypeCheked);
 
   // Валидация времени заезда/выезда
   var timeIn = document.querySelector('#timein');
@@ -154,16 +150,14 @@
     }
   };
 
-  var removePins = function (pins) {
+  var removePins = function () {
     for (var i = 0; i < pins.length; i++) {
       pins[i].remove();
     }
   };
 
   var prepareForm = function () {
-    var pins = document.querySelectorAll('.map__pin--rendered');
     removePins(pins);
-    window.card.closePopup();
     form.reset();
     window.data.mainPin.style.top = '375px';
     window.data.mainPin.style.left = '570px';
@@ -196,9 +190,26 @@
 
     window.data.mainPin.addEventListener('keydown', window.render.onPinEnterPress);
   };
+  // Сброс страницы
+  var mainReset = function () {
+    onSubmitSucces();
+    mapFilter.reset();
+    window.events.addEvents(window.data.mainPin, ['keydown', 'click'], window.render.renderPins);
+    window.data.mainMapPin.addEventListener('mousedown', window.events.onMainPinMove);
+    window.data.mainPin.addEventListener('mousedown', window.render.mainUnblocking);
+  };
+
+  var resetButton = document.querySelector('.ad-form__reset');
+  resetButton.addEventListener('click', mainReset);
+
+  // window.events.addEvents(resetButton, ['keydown', 'click'], mainReset);
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(form), onSubmitSucces, window.onError);
+    window.backend.saveData(new FormData(form), onSubmitSucces, window.onError);
   });
+  window.form = {
+    'inputTitleCheck': inputTitleCheck,
+    'removePins': removePins
+  };
 })();

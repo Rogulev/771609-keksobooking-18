@@ -48,6 +48,7 @@
     if (!window.isActive) {
       window.render.formUnblocking();
       window.isActive = true;
+      setCoord();
     }
   };
 
@@ -91,6 +92,7 @@
     };
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
+      setCoord();
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
@@ -98,12 +100,15 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
-  addEvents(window.data.mainPin, ['mousedown', 'keydown'], onMainPin);
   window.data.mainMapPin.addEventListener('mousedown', onMainPinMove);
+  addEvents(window.data.mainPin, ['mousedown', 'keydown'], onMainPin);
+
 
   window.events = {
     'addEvents': addEvents,
+    'onMainPinMove': onMainPinMove,
     'coordinatePinInput': coordinatePinInput,
-    'getCoordinatePinStart': getCoordinatePinStart
+    'getCoordinatePinStart': getCoordinatePinStart,
+    'onMainPin': onMainPin
   };
 })();

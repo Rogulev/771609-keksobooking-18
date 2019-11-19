@@ -36,6 +36,7 @@
     renderPins(pins);
   };
   // Ошибка при отправке
+
   window.onError = function () {
     var templateError = document.querySelector('#error').content.querySelector('.error');
     var error = templateError.cloneNode(true);
@@ -53,7 +54,7 @@
   // Добавление активации страницы по клику
   var mainUnblocking = function () {
     formUnblocking();
-    window.backend.load(window.onSuccess, window.onError);
+    window.backend.loadData(window.onSuccess, window.onError);
   };
 
 
@@ -86,10 +87,12 @@
 
   window.render = {
     'formUnblocking': formUnblocking,
+    'onPinEnterPress': onPinEnterPress,
     'mainUnblocking': mainUnblocking,
     'disabledElement': disabledElement,
     'includeElement': includeElement,
     'adForm': adForm,
-    'mapFilters': mapFilters
+    'mapFilters': mapFilters,
+    'renderPins': renderPins
   };
 })();
