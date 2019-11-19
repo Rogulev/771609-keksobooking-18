@@ -1,12 +1,29 @@
 'use strict';
 (function () {
+  var MAX_PINS_DRAWING = 5;
+
+  // Добавление disabled на Формы
+  var adForm = document.querySelector('.ad-form');
+  var mapFilters = document.querySelector('.map__filters');
+
+  var disabledElement = function (elem) {
+    for (var i = 0; i < elem.children.length; i++) {
+      elem.children[i].setAttribute('disabled', true);
+    }
+  };
+
+  disabledElement(adForm);
+  disabledElement(mapFilters);
+
   // Отрисовка pin на карте
   var renderPins = function (array) {
     var templatePin = document
       .querySelector('#pin')
       .content.querySelector('.map__pin');
     var fragment = document.createDocumentFragment();
-
+    if (array.length > MAX_PINS_DRAWING) {
+      array.length = MAX_PINS_DRAWING;
+    }
     for (var i = 0; i < array.length; i++) {
       var element = templatePin.cloneNode(true);
       var img = element.querySelector('img');
@@ -16,36 +33,23 @@
       fragment.appendChild(element);
     }
     window.data.mapPins.appendChild(fragment);
-    window.setEventPin(array);
+    window.card.setEventPin(array);
   };
 
-  // Добавление disabled на Формы
-  var adForm = document.querySelector('.ad-form');
-  var mapFilters = document.querySelector('.map__filters');
-
-  var formDisabled = function () {
-    for (var i = 0; i < adForm.children.length; i++) {
-      adForm.children[i].setAttribute('disabled', true);
-    }
-    for (var k = 0; k < mapFilters.children.length; k++) {
-      mapFilters.children[k].setAttribute('disabled', true);
-    }
-  };
-  formDisabled();
-
-  window.onSuccess = function (pins) {
+  // Рендер пинов при удачной загрузки даных
+  var onSuccess = function (pins) {
     renderPins(pins);
   };
 
-  window.onError = function () {
+  // Показ окна ошибки при неудачной отправке
+  var onError = function () {
     var templateError = document.querySelector('#error').content.querySelector('.error');
     var error = templateError.cloneNode(true);
     document.querySelector('body').prepend(error);
-
+    // Снятие окна ошибки кликом
     var onBtnErrorClick = function () {
       document.querySelector('.error').remove();
       btnError.removeEventListener('click', onBtnErrorClick);
-      window.deactivateForms();
       window.isActive = false;
     };
     var btnError = document.querySelector('.error__button');
@@ -55,7 +59,7 @@
   // Добавление активации страницы по клику
   var mainUnblocking = function () {
     formUnblocking();
-    window.backend.load(window.onSuccess, window.onError);
+    window.backend.loadData(onSuccess, onError);
   };
 
 
@@ -65,16 +69,19 @@
     }
   };
 
+  // удаление дизейблов
+  var includeElement = function (elem) {
+    for (var i = 0; i < elem.children.length; i++) {
+      elem.children[i].removeAttribute('disabled', true);
+    }
+  };
+
   var formUnblocking = function () {
     window.data.map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
+    includeElement(adForm);
+    includeElement(mapFilters);
 
-    for (var i = 0; i < adForm.children.length; i++) {
-      adForm.children[i].removeAttribute('disabled', true);
-    }
-    for (var k = 0; k < mapFilters.children.length; k++) {
-      mapFilters.children[k].removeAttribute('disabled', true);
-    }
     window.data.mainPin.removeEventListener('mousedown', mainUnblocking);
 
     window.data.mainPin.removeEventListener('keydown', onPinEnterPress);
@@ -83,4 +90,15 @@
   window.data.mainPin.addEventListener('mousedown', mainUnblocking);
 
   window.data.mainPin.addEventListener('keydown', onPinEnterPress);
+
+  window.render = {
+    'formUnblocking': formUnblocking,
+    'onPinEnterPress': onPinEnterPress,
+    'mainUnblocking': mainUnblocking,
+    'disabledElement': disabledElement,
+    'includeElement': includeElement,
+    'adForm': adForm,
+    'mapFilters': mapFilters,
+    'renderPins': renderPins
+  };
 })();
